@@ -35,7 +35,6 @@ build
 
 # Lock files
 .node_modules.lock
-package-lock.json
 
 # TypeScript
 *.tsbuildinfo
