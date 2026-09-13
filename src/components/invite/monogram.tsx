@@ -1,4 +1,5 @@
 import { INVITE } from "@/lib/invite";
+import { asset } from "@/lib/assets";
 
 export function Monogram({ size = "md" }: { size?: "sm" | "md" }) {
   const box = size === "sm" ? "h-20 w-20" : "h-24 w-24";
@@ -17,7 +18,7 @@ export function Monogram({ size = "md" }: { size?: "sm" | "md" }) {
         {INVITE.monogram}
       </span>
       <img
-        src="/images/floral-top.jpg"
+        src={asset("/images/floral-top.jpg")}
         alt=""
         className="pointer-events-none absolute -right-10 top-1 h-16 w-20 rounded-full object-cover object-[20%_10%] mix-blend-multiply"
       />

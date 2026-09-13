@@ -31,6 +31,7 @@ import {
   buildWhatsAppUrl,
 } from "@/lib/invite";
 import { cn } from "@/lib/utils";
+import { asset } from "@/lib/assets";
 
 function SheetFrame({ children }: { children: ReactNode }) {
   return (
@@ -178,7 +179,7 @@ export function LocalModal({
         <div className="relative w-full h-full">
           {/* Imagem de fundo - Mapa do Tesouro */}
           <img
-            src="/images/modal-local-map.jpg"
+            src={asset("/images/modal-local-map.jpg")}
             alt="Mapa de localização - House Eventos Sobradinho"
             className="w-full h-full object-contain"
           />
@@ -192,7 +193,7 @@ export function LocalModal({
               className="flex items-center justify-center transition-transform hover:scale-105 active:scale-95"
             >
               <img
-                src="/images/btn-como-chegar.png"
+                src={asset("/images/btn-como-chegar.png")}
                 alt="Como Chegar - Abrir no Google Maps"
                 className="block w-auto max-w-[55%] h-auto mx-auto drop-shadow-2xl"
               />
@@ -225,7 +226,7 @@ export function GiftsModal({
           {currentPage === 1 && (
             <div className="relative">
               <img
-                src="/images/modal-gifts-1.jpg"
+                src={asset("/images/modal-gifts-1.jpg")}
                 alt="Mapa dos Tesouros - Página 1"
                 className="w-full h-full object-contain"
               />
@@ -242,7 +243,7 @@ export function GiftsModal({
           {currentPage === 2 && (
             <div className="relative">
               <img
-                src="/images/modal-gifts-2.jpg"
+                src={asset("/images/modal-gifts-2.jpg")}
                 alt="Onde encontrar os tesouros - Página 2"
                 className="w-full h-full object-contain"
               />
@@ -338,7 +339,7 @@ export function DressCodeModal({
         </DialogDescription>
         <div className="relative w-full h-full">
           <img
-            src="/images/modal-dress.jpg"
+            src={asset("/images/modal-dress.jpg")}
             alt="Traje desta Aventura - Dress Code"
             className="w-full h-full object-contain"
           />

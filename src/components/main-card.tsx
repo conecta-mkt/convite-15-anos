@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { asset } from "@/lib/assets";
 import {
   LocalModal,
   GiftsModal,
@@ -20,9 +21,9 @@ export function MainCard() {
   // Pré-carregar imagens dos modais em background para abertura instantânea
   useEffect(() => {
     const imagesToPreload = [
-      '/images/modal-dress.jpg',      // Dress Code
-      '/images/modal-gifts-1.jpg',    // Lista de Presentes - Página 1
-      '/images/modal-gifts-2.jpg',    // Lista de Presentes - Página 2
+      asset('/images/modal-dress.jpg'),      // Dress Code
+      asset('/images/modal-gifts-1.jpg'),    // Lista de Presentes - Página 1
+      asset('/images/modal-gifts-2.jpg'),    // Lista de Presentes - Página 2
     ];
 
     // Criar objetos Image para forçar o navegador a baixar e cachear
@@ -37,7 +38,7 @@ export function MainCard() {
       <div className="relative w-full">
         {/* Imagem de fundo completa do convite - mantém proporção natural */}
         <img
-          src="/images/main-card.jpg"
+          src={asset("/images/main-card.jpg")}
           alt="Convite de 15 anos da Débora Michele"
           className={cn(
             "block w-full h-auto transition-opacity duration-1000",
@@ -55,7 +56,7 @@ export function MainCard() {
               aria-label="Local da festa"
             >
               <img
-                src="/images/btn-local.png"
+                src={asset("/images/btn-local.png")}
                 alt="Local da Festa"
                 className="w-full h-auto drop-shadow-lg"
               />
@@ -68,7 +69,7 @@ export function MainCard() {
               aria-label="Dress code"
             >
               <img
-                src="/images/btn-dress.png"
+                src={asset("/images/btn-dress.png")}
                 alt="Dress Code"
                 className="w-full h-auto drop-shadow-lg"
               />
@@ -81,7 +82,7 @@ export function MainCard() {
               aria-label="Lista de presentes"
             >
               <img
-                src="/images/btn-gifts.png"
+                src={asset("/images/btn-gifts.png")}
                 alt="Lista de Presentes"
                 className="w-full h-auto drop-shadow-lg"
               />

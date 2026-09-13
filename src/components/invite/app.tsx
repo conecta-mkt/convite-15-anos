@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { VideoTransition } from "@/components/video-transition";
 import { MainCard } from "@/components/main-card";
+import { asset } from "@/lib/assets";
 
 type Stage = "video" | "card";
 
@@ -20,7 +21,7 @@ export function InvitationApp() {
       {/* Música de fundo global - continua entre transições */}
       <audio
         ref={audioRef}
-        src="/image-2/music.mp3"
+        src={asset("/image-2/music.mp3")}
         loop
         preload="auto"
       />

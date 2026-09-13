@@ -3,6 +3,7 @@ import { GlassesIcon } from "@/components/invite/icons";
 import { Monogram } from "@/components/invite/monogram";
 import { INVITE } from "@/lib/invite";
 import { cn } from "@/lib/utils";
+import { asset } from "@/lib/assets";
 import type { ReactNode } from "react";
 
 export type InviteAction = "rsvp" | "local" | "gifts" | "info";
@@ -43,12 +44,12 @@ export function InviteCard({
       )}
     >
       <img
-        src="/images/floral-top.jpg"
+        src={asset("/images/floral-top.jpg")}
         alt=""
         className="pointer-events-none absolute inset-x-0 top-0 h-44 w-full object-cover object-top sm:h-52"
       />
       <img
-        src="/images/floral-top.jpg"
+        src={asset("/images/floral-top.jpg")}
         alt=""
         className="pointer-events-none absolute inset-x-0 bottom-0 h-44 w-full rotate-180 object-cover object-top sm:h-52"
       />

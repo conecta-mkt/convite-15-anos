@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { asset } from "@/lib/assets";
 
 interface VideoTransitionProps {
   onComplete: () => void;
@@ -98,7 +99,7 @@ export function VideoTransition({ onComplete, onStartMusic }: VideoTransitionPro
       {/* Vídeo */}
       <video
         ref={videoRef}
-        src="/image-2/video-01.mp4"
+        src={asset("/image-2/video-01.mp4")}
         className="absolute inset-0 h-full w-full object-cover"
         playsInline
         muted={false}
@@ -125,7 +126,7 @@ export function VideoTransition({ onComplete, onStartMusic }: VideoTransitionPro
             
             {/* Imagem com destaque */}
             <img 
-              src="/image-2/btn-comeca-aqui.png" 
+              src={asset("/image-2/btn-comeca-aqui.png")}
               alt="O Próximo Capítulo Começa Aqui!"
               className="relative w-auto max-w-[70vw] max-h-[30vh] h-auto drop-shadow-2xl"
             />
@@ -142,7 +143,7 @@ export function VideoTransition({ onComplete, onStartMusic }: VideoTransitionPro
             
             {/* Imagem com destaque */}
             <img 
-              src="/image-2/btn-toque-no-sol.png" 
+              src={asset("/image-2/btn-toque-no-sol.png")}
               alt="Toque no Sol e Descubra a História"
               className="relative w-auto max-w-[155px] max-h-[15vh] h-auto drop-shadow-2xl"
             />

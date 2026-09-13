@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { asset } from "@/lib/assets";
 
 interface SplashScreenProps {
   onComplete: () => void;
@@ -46,7 +47,7 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
     >
       {/* Imagem de fundo */}
       <img
-        src="/image-2/image-0.png"
+        src={asset("/image-2/image-0.png")}
         alt="O Próximo Capítulo Começa Aqui!"
         className={cn(
           "absolute inset-0 h-full w-full object-cover transition-opacity duration-700",
