@@ -10,7 +10,7 @@ import { routeTree } from "./routeTree.gen";
 const baseUrl = import.meta.env.BASE_URL;
 
 // Determinar basename com fallback para detecção automática
-let basename = '/';
+let basename = undefined;
 if (baseUrl && baseUrl !== '/') {
   // Remover barra final para TanStack Router
   basename = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
@@ -25,16 +25,21 @@ console.log('  BASE_URL (Vite):', baseUrl);
 console.log('  basename (Router):', basename);
 console.log('  pathname (Browser):', window.location.pathname);
 console.log('  href (Browser):', window.location.href);
-console.log('  Will render InvitationApp?', basename !== undefined);
+console.log('  basename será passado?', basename !== undefined);
 
 // Create router instance com basename configurado
 const router = createRouter({
   routeTree,
-  basename: basename !== '/' ? basename : undefined,
+  basename: basename, // Passar basename como está (undefined para raiz, string para subrotas)
   defaultErrorComponent: AppErrorComponent,
 });
 
-// Register router for type safety
+// Adicionar listener para erros de rota
+router.subscribe('onRouteChange', (state) => {
+  console.log('🔄 ROTA ALTERADA:', state);
+});
+
+// Registrar router para type safety
 declare module "@tanstack/react-router" {
   interface Register {
     router: typeof router;

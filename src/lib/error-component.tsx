@@ -10,6 +10,16 @@ function errorMessage(error: unknown): string {
 }
 
 export function AppErrorComponent({ error }: ErrorComponentProps) {
+  const message = errorMessage(error);
+  
+  // Debug: Log do erro quando renderiza
+  console.error('🔴 AppErrorComponent renderizado com erro:', {
+    error,
+    message,
+    errorString: String(error),
+    pathname: typeof window !== 'undefined' ? window.location.pathname : 'N/A',
+  });
+  
   return (
     <main
       className={
@@ -22,7 +32,7 @@ export function AppErrorComponent({ error }: ErrorComponentProps) {
       </span>
       <h1 className="text-lg font-semibold">Something went wrong</h1>
       <p className="max-w-md text-sm break-words text-zinc-500 dark:text-zinc-400">
-        {errorMessage(error)}
+        {message}
       </p>
     </main>
   );
