@@ -2,11 +2,12 @@ import { createRouter } from "@tanstack/react-router";
 import { AppErrorComponent } from "@/lib/error-component";
 import { routeTree } from "./routeTree.gen";
 
-export function getRouter() {
-  // TanStack Router v1 não suporta basepath corretamente
-  // Removendo basepath - o Vite cuida dos assets via BASE_URL
+export function getRouter(basename?: string) {
+  // TanStack Router v1 SUPORTA basepath via basename
+  // O basename deve corresponder ao BASE_URL configurado no Vite
   return createRouter({ 
-    routeTree, 
+    routeTree,
+    basename: basename !== '/' ? basename : undefined,
     defaultErrorComponent: AppErrorComponent
   });
 }

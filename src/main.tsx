@@ -4,9 +4,17 @@ import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { AppErrorComponent } from "@/lib/error-component";
 import { routeTree } from "./routeTree.gen";
 
-// Create router instance
+// Obter BASE_URL do Vite (necessário para GitHub Pages)
+// Em produção: /convite-15-anos/
+// Em desenvolvimento: /
+const baseUrl = import.meta.env.BASE_URL;
+// Remover barra final para TanStack Router (espera: /convite-15-anos, não /convite-15-anos/)
+const basename = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) || '/' : baseUrl;
+
+// Create router instance com basename configurado
 const router = createRouter({
   routeTree,
+  basename: basename !== '/' ? basename : undefined,
   defaultErrorComponent: AppErrorComponent,
 });
 
