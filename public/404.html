@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecionando...</title>
+  <script>
+    // Redireciona 404 para index.html mantendo o path
+    // Necessário para SPAs no GitHub Pages
+    (function() {
+      var path = window.location.pathname;
+      var base = '/convite-15-anos';
+      
+      // Se a URL não é o index.html, redireciona
+      if (path !== base + '/' && path !== base + '/index.html') {
+        window.location.replace(base + '/');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <p>Carregando...</p>
+</body>
+</html>
