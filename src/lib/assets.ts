@@ -7,10 +7,10 @@
  * - GitHub Pages: asset('/images/photo.jpg') → '/convite-15-anos/images/photo.jpg'
  */
 export function asset(path: string): string {
-  const base = import.meta.env.BASE_URL;
+  const base = import.meta.env.BASE_URL || '/';
   // Remove barra inicial do path se existir
   const cleanPath = path.startsWith('/') ? path.slice(1) : path;
-  // Garante que base termina com /
-  const cleanBase = base.endsWith('/') ? base : `${base}/`;
-  return `${cleanBase}${cleanPath}`;
+  // Garante que base termina com / mas não duplica
+  const cleanBase = base === '/' ? '' : (base.endsWith('/') ? base.slice(0, -1) : base);
+  return `${cleanBase}/${cleanPath}`;
 }
