@@ -13,6 +13,7 @@ export function VideoTransition({ onComplete, onStartMusic }: VideoTransitionPro
   const [isReady, setIsReady] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
   const [whiteOverlay, setWhiteOverlay] = useState(false);
+  const [loadProgress, setLoadProgress] = useState(0);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -21,6 +22,19 @@ export function VideoTransition({ onComplete, onStartMusic }: VideoTransitionPro
     // Listener para quando o vídeo estiver pronto para tocar
     const handleCanPlay = () => {
       setIsReady(true);
+    };
+
+    // Listener para monitorar progresso de carregamento
+    const handleProgress = () => {
+      const video = videoRef.current;
+      if (!video || !video.buffered.length) return;
+      
+      // Calcula percentual de carregamento
+      const bufferedEnd = video.buffered.end(video.buffered.length - 1);
+      const duration = video.duration;
+      if (duration > 0) {
+        setLoadProgress((bufferedEnd / duration) * 100);
+      }
     };
 
     // Listener para cortar 0.5s do final do vídeo
@@ -35,10 +49,12 @@ export function VideoTransition({ onComplete, onStartMusic }: VideoTransitionPro
     };
 
     video.addEventListener("canplay", handleCanPlay);
+    video.addEventListener("progress", handleProgress);
     video.addEventListener("timeupdate", handleTimeUpdate);
 
     return () => {
       video.removeEventListener("canplay", handleCanPlay);
+      video.removeEventListener("progress", handleProgress);
       video.removeEventListener("timeupdate", handleTimeUpdate);
     };
   }, [isPlaying]);
@@ -103,7 +119,8 @@ export function VideoTransition({ onComplete, onStartMusic }: VideoTransitionPro
         className="absolute inset-0 h-full w-full object-cover"
         playsInline
         muted={false}
-        preload="auto"
+        preload="metadata"
+        crossOrigin="anonymous"
       />
 
       {/* Overlay para escurecer um pouco se necessário */}
@@ -153,8 +170,18 @@ export function VideoTransition({ onComplete, onStartMusic }: VideoTransitionPro
 
       {/* Indicador de loading enquanto carrega */}
       {!isReady && (
-        <div className="absolute inset-0 flex items-center justify-center">
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-6">
           <div className="h-12 w-12 animate-spin rounded-full border-4 border-white/20 border-t-white/90" />
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-sm font-medium text-white">Carregando vídeo...</p>
+            <div className="w-48 h-1 bg-white/10 rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-white/50 to-white/80 transition-all duration-300"
+                style={{ width: `${loadProgress}%` }}
+              />
+            </div>
+            <p className="text-xs text-white/60">{Math.round(loadProgress)}%</p>
+          </div>
         </div>
       )}
     </div>
