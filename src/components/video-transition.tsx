@@ -13,7 +13,6 @@ export function VideoTransition({
 }: VideoTransitionProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isStarting, setIsStarting] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
   const [whiteOverlay, setWhiteOverlay] = useState(false);
 
@@ -65,9 +64,7 @@ export function VideoTransition({
   function handleClick() {
     const video = videoRef.current;
 
-    if (!video || isPlaying || isStarting) return;
-
-    setIsStarting(true);
+    if (!video || isPlaying) return;
 
     /*
       IMPORTANTE PARA IPHONE/SAFARI:
@@ -82,11 +79,9 @@ export function VideoTransition({
       playPromise
         .then(() => {
           setIsPlaying(true);
-          setIsStarting(false);
         })
         .catch((error) => {
           console.error("Erro ao reproduzir vídeo:", error);
-          setIsStarting(false);
 
           // Se o vídeo falhar, abre o convite normalmente
           handleComplete();
@@ -140,7 +135,7 @@ export function VideoTransition({
           AGORA APARECE IMEDIATAMENTE.
           NÃO DEPENDE MAIS DO CANPLAY.
       */}
-      {!isPlaying && !isStarting && (
+      {!isPlaying && (
         <>
           {/* Botão / imagem principal */}
           <div className="absolute top-[8%] left-0 right-0 cursor-pointer flex justify-center z-20">
@@ -168,18 +163,6 @@ export function VideoTransition({
             </div>
           </div>
         </>
-      )}
-
-      {/* FEEDBACK DEPOIS DO TOQUE */}
-      {isStarting && (
-        <div className="absolute inset-0 z-30 flex items-center justify-center bg-black/20 pointer-events-none">
-          <div className="flex flex-col items-center gap-3">
-            <div className="h-10 w-10 animate-spin rounded-full border-4 border-white/20 border-t-white" />
-            <p className="text-sm text-white drop-shadow-lg">
-              Preparando sua experiência...
-            </p>
-          </div>
-        </div>
       )}
     </div>
   );
