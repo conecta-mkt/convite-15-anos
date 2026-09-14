@@ -113,8 +113,8 @@ export function VideoTransition({
         poster={asset("/image-2/video-poster.webp")}
         className="absolute inset-0 h-full w-full object-cover"
         playsInline
-        muted={false}
-        preload="auto"
+        muted
+        preload="metadata"
         crossOrigin="anonymous"
       />
 
