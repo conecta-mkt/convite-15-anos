@@ -1,30 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Redirecionando...</title>
-  <script>
-    // Redireciona 404 para index.html mantendo o path
-    // Necessário para SPAs no GitHub Pages
-    (function() {
-      var path = window.location.pathname;
-      var base = '/convite-15-anos';
-      
-      // Se o path é exatamente a raiz do projeto, não fazer nada
-      // GitHub Pages servirá index.html automaticamente
-      if (path === base + '/' || path === base + '/index.html') {
-        // Deixar como está - GitHub Pages servindo index.html
-        return;
-      }
-      
-      // Se é uma subrota desconhecida, redirecionar para a raiz
-      if (path.startsWith(base + '/')) {
-        window.location.replace(base + '/');
-      }
-    })();
-  </script>
-</head>
-<body>
-  <p>Carregando...</p>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Débora — Meus 15 Anos</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
