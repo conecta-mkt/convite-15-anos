@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { asset } from "@/lib/assets";
-import { LoadingScreen } from "@/components/loading-screen";
 
 interface VideoTransitionProps {
   onComplete: () => void;
@@ -11,32 +10,12 @@ interface VideoTransitionProps {
 export function VideoTransition({ onComplete, onStartMusic }: VideoTransitionProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isReady, setIsReady] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
   const [whiteOverlay, setWhiteOverlay] = useState(false);
-  const [loadProgress, setLoadProgress] = useState(0);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-
-    // Listener para quando o vídeo estiver pronto para tocar
-    const handleCanPlay = () => {
-      setIsReady(true);
-    };
-
-    // Listener para monitorar progresso de carregamento
-    const handleProgress = () => {
-      const video = videoRef.current;
-      if (!video || !video.buffered.length) return;
-      
-      // Calcula percentual de carregamento
-      const bufferedEnd = video.buffered.end(video.buffered.length - 1);
-      const duration = video.duration;
-      if (duration > 0) {
-        setLoadProgress((bufferedEnd / duration) * 100);
-      }
-    };
 
     // Listener para cortar 0.5s do final do vídeo
     const handleTimeUpdate = () => {
@@ -49,13 +28,9 @@ export function VideoTransition({ onComplete, onStartMusic }: VideoTransitionPro
       }
     };
 
-    video.addEventListener("canplay", handleCanPlay);
-    video.addEventListener("progress", handleProgress);
     video.addEventListener("timeupdate", handleTimeUpdate);
 
     return () => {
-      video.removeEventListener("canplay", handleCanPlay);
-      video.removeEventListener("progress", handleProgress);
       video.removeEventListener("timeupdate", handleTimeUpdate);
     };
   }, [isPlaying]);
@@ -170,12 +145,7 @@ export function VideoTransition({ onComplete, onStartMusic }: VideoTransitionPro
       )}
 
       {/* Indicador de loading enquanto carrega */}
-      {!isReady && (
-        <LoadingScreen 
-          progress={loadProgress}
-          message="Preparando sua história mágica..."
-        />
-      )}
+      {/* Removido: tela de progresso 0-100% - imagens já aparecem instantaneamente */}
     </div>
   );
 }
