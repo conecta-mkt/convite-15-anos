@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { asset } from "@/lib/assets";
+import { LoadingScreen } from "@/components/loading-screen";
 
 interface VideoTransitionProps {
   onComplete: () => void;
@@ -119,7 +120,7 @@ export function VideoTransition({ onComplete, onStartMusic }: VideoTransitionPro
         className="absolute inset-0 h-full w-full object-cover"
         playsInline
         muted={false}
-        preload="metadata"
+        preload="auto"
         crossOrigin="anonymous"
       />
 
@@ -134,8 +135,8 @@ export function VideoTransition({ onComplete, onStartMusic }: VideoTransitionPro
         )}
       />
 
-      {/* Imagem principal no topo quando pausado */}
-      {isReady && !isPlaying && (
+      {/* Imagem principal no topo - aparece imediatamente, não depende de canplay */}
+      {!isPlaying && (
         <div className="absolute top-[8%] left-0 right-0 cursor-pointer flex justify-center">
           <div className="relative">
             {/* Nuvem escura de fundo */}
@@ -151,8 +152,8 @@ export function VideoTransition({ onComplete, onStartMusic }: VideoTransitionPro
         </div>
       )}
 
-      {/* Imagem sutil no canto inferior direito quando pausado */}
-      {isReady && !isPlaying && (
+      {/* Imagem sutil no canto inferior direito - aparece imediatamente */}
+      {!isPlaying && (
         <div className="absolute bottom-20 right-8 cursor-pointer">
           <div className="relative">
             {/* Nuvem escura de fundo */}
@@ -170,19 +171,10 @@ export function VideoTransition({ onComplete, onStartMusic }: VideoTransitionPro
 
       {/* Indicador de loading enquanto carrega */}
       {!isReady && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-6">
-          <div className="h-12 w-12 animate-spin rounded-full border-4 border-white/20 border-t-white/90" />
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-sm font-medium text-white">Carregando vídeo...</p>
-            <div className="w-48 h-1 bg-white/10 rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-gradient-to-r from-white/50 to-white/80 transition-all duration-300"
-                style={{ width: `${loadProgress}%` }}
-              />
-            </div>
-            <p className="text-xs text-white/60">{Math.round(loadProgress)}%</p>
-          </div>
-        </div>
+        <LoadingScreen 
+          progress={loadProgress}
+          message="Preparando sua história mágica..."
+        />
       )}
     </div>
   );

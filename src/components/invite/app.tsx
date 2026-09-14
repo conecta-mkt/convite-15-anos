@@ -23,7 +23,7 @@ export function InvitationApp() {
         ref={audioRef}
         src={asset("/image-2/music.mp3")}
         loop
-        preload="auto"
+        preload="metadata"
       />
 
       {/* Container responsivo - mobile first, limitado no desktop */}
