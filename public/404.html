@@ -10,8 +10,15 @@
       var path = window.location.pathname;
       var base = '/convite-15-anos';
       
-      // Se a URL não é o index.html, redireciona
-      if (path !== base + '/' && path !== base + '/index.html') {
+      // Se o path é exatamente a raiz do projeto, não fazer nada
+      // GitHub Pages servirá index.html automaticamente
+      if (path === base + '/' || path === base + '/index.html') {
+        // Deixar como está - GitHub Pages servindo index.html
+        return;
+      }
+      
+      // Se é uma subrota desconhecida, redirecionar para a raiz
+      if (path.startsWith(base + '/')) {
         window.location.replace(base + '/');
       }
     })();

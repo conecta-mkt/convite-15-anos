@@ -8,8 +8,24 @@ import { routeTree } from "./routeTree.gen";
 // Em produção: /convite-15-anos/
 // Em desenvolvimento: /
 const baseUrl = import.meta.env.BASE_URL;
-// Remover barra final para TanStack Router (espera: /convite-15-anos, não /convite-15-anos/)
-const basename = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) || '/' : baseUrl;
+
+// Determinar basename com fallback para detecção automática
+let basename = '/';
+if (baseUrl && baseUrl !== '/') {
+  // Remover barra final para TanStack Router
+  basename = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+} else if (typeof window !== 'undefined' && window.location.pathname.includes('convite-15-anos')) {
+  // Fallback: detectar se estamos em GitHub Pages pelo pathname
+  basename = '/convite-15-anos';
+}
+
+// Debug: Verificar configuração do router
+console.log('🔍 DIAGNÓSTICO DO ROUTER');
+console.log('  BASE_URL (Vite):', baseUrl);
+console.log('  basename (Router):', basename);
+console.log('  pathname (Browser):', window.location.pathname);
+console.log('  href (Browser):', window.location.href);
+console.log('  Will render InvitationApp?', basename !== undefined);
 
 // Create router instance com basename configurado
 const router = createRouter({
